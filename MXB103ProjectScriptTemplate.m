@@ -45,6 +45,14 @@
 %
 % Write a paragraph on the assumptions and limitations on the model,
 % and a paragraph on the limitations on the study you have conducted.
+%
+% In the model there will be a range of assumptions that will have to be
+% taken into consideration. The model assumes there be a constant drag on 
+% the jumper and a vertical bounce from the bungee cord. The model also
+% has a limitationin that it does not adjust for the different possible
+% weather conditions.
+%
+% The following study conducted also has limitations. 
 
 %% 3.2 Parameters
 H = 74;             % Height of jump point (m)
