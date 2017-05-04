@@ -17,6 +17,21 @@
 % A few paragraphs should be enough.
 % Finish with a sentence linking to the next section on the model.
 
+% The Brisbane City Council has proposed for a bungee jumping platform to
+% be installed at the top of the Story Bridge. 
+
+% We have been tasked with determining if the model will provide adequate
+% thrill to the customers, whilst still retaining safety. The model is also
+% used to determine the perfect trigger-point for a camera to go off, to
+% ensure the customer can purchase a photo to remember their experience by.
+
+% Furthermore, a 'water touch' experience is wanted to be offered to allow
+% the customers to experience touching the water. The model is to be used
+% to determine how closely they will touch the water, and how it can be
+% modified to optimise for this without sacrificing safety.
+
+% The following model will be used to answer these questions.
+
 %% 3 The model
 %
 % The equation of motion for bungee jumping is
