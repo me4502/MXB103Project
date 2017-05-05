@@ -20,9 +20,9 @@ v = zeros(1,n+1);
 % Perform iterations
 for j = 1:n
     k1 = h*(g - C*abs(v(j))*v(j) - max(0, K*(y(j) - L)));
-    k2 = h*(g - C*abs(v(j))*v(j) - max(0, K*((y(j)+ k1/2) - L)));
-    k3 = h*(g - C*abs(v(j))*v(j) - max(0, K*((y(j)+ k2/2) - L)));
-    k4 = h*(g - C*abs(v(j))*v(j) - max(0, K*((y(j)+ k3) - L)));
+    k2 = h*(g - C*abs(v(j) + k1/2)*(v(j) + k1/2) - max(0, K*(y(j) - L)));
+    k3 = h*(g - C*abs(v(j) + k2/2)*(v(j) + k2/2) - max(0, K*(y(j) - L)));
+    k4 = h*(g - C*abs(v(j) + k3)*(v(j) + k3) - max(0, K*(y(j) - L)));
     y(j+1) = y(j) + h*v(j);
     v(j+1) = v(j) + 1/6 * (k1 + 2*k2 + 2*k3 + k4);
 end
