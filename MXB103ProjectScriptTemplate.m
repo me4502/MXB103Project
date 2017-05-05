@@ -16,23 +16,23 @@
 % What's your approach to doing this?
 % A few paragraphs should be enough.
 % Finish with a sentence linking to the next section on the model.
-
+%
 % The Brisbane City Council has proposed for a bungee jumping platform to
 % be installed at the top of the Story Bridge. 
-
+%
 % We have been tasked with determining if the model will provide adequate
 % thrill to the customers, whilst still retaining safety. The model is also
 % used to determine the perfect trigger-point for a camera to go off, to
 % ensure the customer can purchase a photo to remember their experience by.
-
+%
 % Furthermore, a 'water touch' experience is wanted to be offered to allow
 % the customers to experience touching the water. The model is to be used
 % to determine how closely they will touch the water, and how it can be
 % modified to optimise for this without sacrificing safety.
-
+%
 % In order to solve this, a Fourth Order Runge-Kutta equation has been
 % developed to solve the Ordinary Differential Equation that is the model.
-
+%
 % The following model will be used to answer these questions.
 
 %% 3 The model
@@ -83,11 +83,17 @@ n = 10000;          % Number of subintervals (you decide how many you need)
 % The ordinary differential equations are solved using fourth order Runge-Kutta method.
 [t, y, v, h] = RK4_bungee(T, n, g, C, K, L);
 
-figure
+figure(1)
 plot(t, y);
 xlabel('time (s)');
 ylabel('distance fallen (m)');
-title('Figure 1: Something descriptive here.');
+title('Figure 1: Distance fallen over time.');
+
+figure(2)
+plot(t, v);
+xlabel('time (s)');
+ylabel('velocity (m/s)');
+title('Figure 2: Jumper velocity over time.');
 
 %% 5 Analysis
 %
@@ -106,6 +112,13 @@ title('Figure 1: Something descriptive here.');
 % Describe the question, and then answer it.  In this case, you will create
 % a figure of $v$ versus $t$ and refer to it to answer the question.
 % 
+% This question refers to finding the point at which the jumper reaches the
+% maximum speed, for the highest thrill factor. 
+% The graph shows the highest velocity of $value$ is reached at
+% $$t(index)$$ seconds.
+
+[value, index] = max(v);
+disp('Maximum speed occurs at ' + t(index) + 's');
 
 %% 5.3 Maximum acceleration experienced by the jumper
 %
