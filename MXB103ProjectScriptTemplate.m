@@ -30,6 +30,9 @@
 % to determine how closely they will touch the water, and how it can be
 % modified to optimise for this without sacrificing safety.
 
+% In order to solve this, a Fourth Order Runge-Kutta equation has been
+% developed to solve the Ordinary Differential Equation that is the model.
+
 % The following model will be used to answer these questions.
 
 %% 3 The model
