@@ -7,8 +7,18 @@
 % proposal.
 %
 % In Section 2 of this report, the proposal and the key questions relating 
-% to it are discussed in more detail.  In Section 3, the model ...
-% In Section 4, etc.
+% to it are discussed in more detail. In Section 3, the model is expanded
+% on including the mathematical equation representing the acceleration of 
+% the jumper and how this equation was formed. This is followed by a 
+% disussion of the assumptions and limitations considered with the model 
+% and throughout the study as well as the parameters the study is basing 
+% its results on.
+%
+% Section 4 introduces the formulated model and parameters for the formula
+% to then show the model in graph form. Then section 5 comes to the 
+% analysis of the graphical predictions addressing the questions of the 
+% proposal with further analysis. Finally  coming to a conclusion in
+% section 6 discussing findings and future recommendations.
 
 %% 2  The proposal
 % What is the proposal exactly?
