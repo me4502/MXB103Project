@@ -116,7 +116,18 @@ title('Figure 2: Jumper velocity over time.');
 % Describe the question, and then answer it.  In this case, you will refer
 % to Figure 1 of $y$ versus $t$.
 % 
+% The question describes the bungee company's suggested number of bounces
+% that should take place within 60 seconds. The company recommends 10 
+% bounces to be performed within the 60 seconds.
 
+dwnCurve = 0;
+for i = 3:n
+    if(y(i) < y(i-1) && y(i-1) > y(i-2))
+        dwnCurve = dwnCurve + 1;
+    end
+end
+
+fprintf('In %d seconds, %d bounces take place.\n',T,dwnCurve);
 %% 5.2 Maximum speed experienced by the jumper
 %
 % Describe the question, and then answer it.  In this case, you will create
