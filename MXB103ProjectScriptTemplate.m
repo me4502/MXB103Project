@@ -151,7 +151,20 @@ fprintf('Maximum speed occurs at %.2d seconds',  t(index));
 %
 % Describe the question, and then answer it.  In this case, you will call
 % a function to numerically integrate $|v|$ to find the distance.
+%
+% As a requirement for promotional material, the question asks to compute
+% the total distance the jumper has travelled in 60 seconds.
 
+distance = 0;
+totalDistance = 0;
+
+for i = 3:n
+    distance = y(i)-y(i-1);
+    totalDistance = totalDistance + abs(distance);
+end
+
+
+fprintf('The jumper has traveled %.0f metres in %d seconds', totalDistance, T);
 %% 5.5 Automated camera system
 %
 % Describe the question, and then answer it.  In this case, you will
