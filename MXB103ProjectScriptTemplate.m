@@ -139,7 +139,7 @@ fprintf('In %d seconds, %d bounces take place.\n',T,dwnCurve);
 % $$t(index)$$ seconds.
 
 [value, index] = max(v);
-disp('Maximum speed occurs at ' + t(index) + 's');
+fprintf('Maximum speed occurs at %.2d seconds',  t(index));
 
 %% 5.3 Maximum acceleration experienced by the jumper
 %
