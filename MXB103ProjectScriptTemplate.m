@@ -153,11 +153,14 @@ fprintf('Maximum speed occurs at %.2d seconds',  t(index));
 
 f = @(t) v(t);
 a = zeros(1,n+1);
-disp ((f(3) - f(1)) / (2*h));
-index = 1;
 a(1) = g;
+max_a = g; % Finding the maximum acceleration the jumper experiences
+index = 1;
 for j = 2:n
     a(j) = second_order_central(f, j, index, h);
+    if max_a < abs(a(j))
+       max_a = abs(a(j));
+    end
 end
 
 figure(3)
@@ -165,7 +168,6 @@ plot(t, a);
 xlabel('time (s)');
 ylabel('fall acceleration (m/s^2)');
 title('Figure 3: Fall acceleration over time.');
-
 %% 5.4 Distance travelled by the jumper
 %
 % Describe the question, and then answer it.  In this case, you will call
@@ -193,6 +195,8 @@ fprintf('The jumper has traveled %.0f metres in %d seconds', totalDistance, T);
 % fit an interpolating polynomial through the four points in your solution
 % $y$ that lie either side of the camera location.  Then use that
 % polynomial to solve for when the jumper passes the camera.
+
+
 
 %% 5.6 Water touch option
 %
