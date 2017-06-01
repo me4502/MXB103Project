@@ -146,6 +146,25 @@ fprintf('Maximum speed occurs at %.2d seconds',  t(index));
 % Describe the question, and then answer it.  In this case, you will call
 % a function to numerically differentiate $v$ to find $a$.  Then plot $a$ 
 % versus $t$ and refer to it to answer the question.
+%
+% Knowing the acceleration at t = 0 is g we skip the first step in order 
+% for the arrays v and y to grab values from the previous and next 
+% index which allows the second order central differentiation to work
+
+f = @(t) v(t);
+a = zeros(1,n+1);
+disp ((f(3) - f(1)) / (2*h));
+index = 1;
+a(1) = g;
+for j = 2:n
+    a(j) = second_order_central(f, j, index, h);
+end
+
+figure(3)
+plot(t, a);
+xlabel('time (s)');
+ylabel('fall acceleration (m/s^2)');
+title('Figure 3: Fall acceleration over time.');
 
 %% 5.4 Distance travelled by the jumper
 %
@@ -166,6 +185,9 @@ end
 
 fprintf('The jumper has traveled %.0f metres in %d seconds', totalDistance, T);
 %% 5.5 Automated camera system
+%
+% The client plans to implement an automated camera system in order to
+% capture the jumper as they descend 
 %
 % Describe the question, and then answer it.  In this case, you will
 % fit an interpolating polynomial through the four points in your solution
