@@ -176,13 +176,13 @@ title('Figure 3: Fall acceleration over time.');
 % As a requirement for promotional material, the question asks to compute
 % the total distance the jumper has travelled in 60 seconds.
 
-fa = @(t) abs(v(t));
+f_absv = @(t) abs(v(t));
 a = 1;
 b = 10001;
 
-distance = simprule(fa, a, b, n, h);
+distance = simprule(f_absv, a, b, n, h);
 
-fprintf('The jumper has traveled %.0f metres in %d seconds', totalDistance, T);
+fprintf('The jumper has traveled %.0f metres in %d seconds', distance, T);
 %% 5.5 Automated camera system
 %
 % The client plans to implement an automated camera system in order to
@@ -199,7 +199,7 @@ y_index = 1; % Indexing through y to find the closest value to y_cam
 % Once a y value that exceeds y_cam is found, the four y values used for
 % interpolation can be extracted
 while y(y_index) < y_cam
-    y_index = y_index + 1; % Move to next index
+    y_index = y_index + 1;
 end
 Y = [y(y_index - 2) y(y_index - 1) y(y_index) y(y_index + 1)];
 
@@ -211,13 +211,29 @@ T = [t(y_index - 2) t(y_index - 1) t(y_index) t(y_index + 1)];
 % generate the interpolating polynomial for the four points gathered
 
 M = forward_differences(Y);
-t_interpol = T(1):1/10000:T(length(T));
+t_interpol = T(1):h/100:T(length(T));
 y_interpol = forward_eval(T, M, t_interpol);
+
+% Using the bisection method to find the root of the interpolating
+% polynomial at 43m
+f_root = @(x) y_interpol(x);
+
+% indeces of the first and last values of y_interpol
+root_a = 1;
+root_b = length(y_interpol);
+
+p = bisection(f_root, root_a, root_b, y_cam);
 figure(4)
 plot (T, Y, 'ro');
 hold on
 plot (t_interpol, y_interpol);
+plot (t_interpol(p), y_interpol(p), '*');
+xlabel('time (s)');
+ylabel('distance fallen (m)');
+title('Figure 4: Interpolated polynomial over four points closest to 43m.');
+legend('4 points near 43m', 'polynomial', 'closest to 43m');
 
+fprintf('The camera should trigger at %7.5f seconds', t_interpol(p));
 %% 5.6 Water touch option
 %
 % Describe the question, and then answer it.  In this case, you will

@@ -1,4 +1,4 @@
-function [I, h] = simprule(f, a, b, n, h)
+function I = simprule(f, a, b, n, h)
 %SIMPRULE Simpson's rule integration.
 % I = SIMPRULE(F, A, B, N) returns Simpson's rule approximation for
 % the integral of f(x) from x=A to x=B, using N subintervals,
