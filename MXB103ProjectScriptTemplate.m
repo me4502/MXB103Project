@@ -196,7 +196,30 @@ fprintf('The jumper has traveled %.0f metres in %d seconds', totalDistance, T);
 % $y$ that lie either side of the camera location.  Then use that
 % polynomial to solve for when the jumper passes the camera.
 
+y_cam = H - D; % Distance from the jumper to the camera
+y_index = 1; % Indexing through y to find the closest value to y_cam
 
+% Once a y value that exceeds y_cam is found, the four y values used for
+% interpolation can be extracted
+while y(y_index) < y_cam
+    y_index = y_index + 1; % Move to next index
+end
+Y = [y(y_index - 2) y(y_index - 1) y(y_index) y(y_index + 1)];
+
+% Also grabbing the time the same four points of Y
+T = [t(y_index - 2) t(y_index - 1) t(y_index) t(y_index + 1)];
+
+% Considering the y values are all equally spaced by interval h with
+% regards to time, it is possible to use Newton Forward Difference Form to
+% generate the interpolating polynomial for the four points gathered
+
+M = forward_differences(Y);
+t_interpol = T(1):1/10000:T(length(T));
+y_interpol = forward_eval(T, M, t_interpol);
+figure(4)
+plot (T, Y, 'ro');
+hold on
+plot (t_interpol, y_interpol);
 
 %% 5.6 Water touch option
 %
