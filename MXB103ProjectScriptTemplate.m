@@ -176,14 +176,11 @@ title('Figure 3: Fall acceleration over time.');
 % As a requirement for promotional material, the question asks to compute
 % the total distance the jumper has travelled in 60 seconds.
 
-distance = 0;
-totalDistance = 0;
+fa = @(t) abs(v(t));
+a = 1;
+b = 10001;
 
-for i = 3:n
-    distance = y(i)-y(i-1);
-    totalDistance = totalDistance + abs(distance);
-end
-
+distance = simprule(fa, a, b, n, h);
 
 fprintf('The jumper has traveled %.0f metres in %d seconds', totalDistance, T);
 %% 5.5 Automated camera system
