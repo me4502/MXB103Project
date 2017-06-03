@@ -1,8 +1,9 @@
 function I = simprule(f, a, b, n, h)
 %SIMPRULE Simpson's rule integration.
-% I = SIMPRULE(F, A, B, N) returns Simpson's rule approximation for
+% I = SIMPRULE(F, A, B, N, H) returns Simpson's rule approximation for
 % the integral of f(x) from x=A to x=B, using N subintervals,
-% where F is a function handle.
+% where F is a function handle and H is the subinterval with regards to 
+% time.
 if ~isa(f, 'function_handle')
 error('Your first argument was not a function handle')
 end

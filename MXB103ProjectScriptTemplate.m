@@ -21,11 +21,6 @@
 % section 6 discussing findings and future recommendations.
 
 %% 2  The proposal
-% What is the proposal exactly?
-% What questions have you been asked to answer?
-% What's your approach to doing this?
-% A few paragraphs should be enough.
-% Finish with a sentence linking to the next section on the model.
 %
 % The Brisbane City Council has proposed for a bungee jumping platform to
 % be installed at the top of the Story Bridge. 
@@ -40,8 +35,9 @@
 % to determine how closely they will touch the water, and how it can be
 % modified to optimise for this without sacrificing safety.
 %
-% In order to solve this, a Fourth Order Runge-Kutta equation has been
-% developed to solve the Ordinary Differential Equation that is the model.
+% In order to solve this, the fourth order Runge-Kutta method has been
+% used to approximate the velocity and distance fallen of the jumper using 
+% the model below.
 %
 % The following model will be used to answer these questions.
 
@@ -51,8 +47,17 @@
 %%
 % $$\frac{dv}{dt} = g - C|v|v - \max(0,K(y-L))$$
 %
-% Write a paragraph or two about the equation, including where it comes
-% from and what the symbols mean.
+% This equation is a compilation of three key forces acted on the bungee
+% jumper over the course of the entire jump. These three forces are
+% gravity (g), drag (-C|v|v), and tension (-max(0,K(y-L)). Note the drag
+% and tension forces act against the fall of the bungee jumper, and are
+% therefore negative.
+%
+% (g) is gravity, as stated before, (C) is the drag coefficient (c) divided
+% by mass of the jumper (m). (v) is the velocity of the jumper, (K) is the 
+% spring constant of the bungee chord divided by (m). (y) is the height of
+% the jumper relative to the initial position of the jumper, and (L) is the 
+% length of the bungee chord.
 
 %% 3.1 Assumptions and limitations
 %
@@ -80,17 +85,30 @@ K = k/m;            % Scaled spring constant
 
 %% 4 The numerical method
 %
-% How do you formulate the model to solve numerically? (hint: you write it
-% as two equations)
+% The fourth order Runge-Kutta method was employed to find the velocity and
+% displacement of the jumper with the method below:
+%%
+% $$k1 = h(g - C|v_i|v_i - \max(0, K(y_i - L)))$$ 
+%
+% $$k2 = h(g - C|v_i + k1/2|(v_i + k1/2) - \max(0, K(y_i - L)))$$
+%
+% $$k3 = h(g - C|v_i + k2/2|(v_i + k2/2) - \max(0, K(y_i - L)))$$
+%
+% $$k4 = h(g - C|v_i + k3|(v_i + k3) - \max(0, K(y_i - L)))$$
+%
+% $$v_{i+1} = v_i + 1/6(k1 + 2k2 + 2k3 + k4)$$
+%
+% $$y_{i+1} = y_i + hv_i$$
 
 %% 4.1 Parameters
 
 T = 60;             % Final time in simulation (s)
-n = 10000;          % Number of subintervals (you decide how many you need)
+n = 10000;          % Number of subintervals
 
 %% 4.2 Solution
 %
-% The ordinary differential equations are solved using fourth order Runge-Kutta method.
+% The ordinary differential equations are solved using fourth order 
+% Runge-Kutta method.
 [t, y, v, h] = RK4_bungee(T, n, g, C, K, L);
 
 figure(1)
@@ -99,12 +117,6 @@ xlabel('time (s)');
 ylabel('distance fallen (m)');
 title('Figure 1: Distance fallen over time.');
 
-figure(2)
-plot(t, v);
-xlabel('time (s)');
-ylabel('velocity (m/s)');
-title('Figure 2: Jumper velocity over time.');
-
 %% 5 Analysis
 %
 % In this section, the model predictions are analysed with respect to the
@@ -112,51 +124,62 @@ title('Figure 2: Jumper velocity over time.');
 %
 
 %% 5.1 Timing and bounces
-%
-% Describe the question, and then answer it.  In this case, you will refer
-% to Figure 1 of $y$ versus $t$.
 % 
 % The question describes the bungee company's suggested number of bounces
 % that should take place within 60 seconds. The company recommends 10 
-% bounces to be performed within the 60 seconds.
+% bounces to be performed within the 60 seconds. Indexing through all y 
+% values, the peaks of each wave are counted towards a counter, which shows
+% below having counted 10 bounces as the company has recommended.
 
-dwnCurve = 0;
+peaks = 0;
 for i = 3:n
     if(y(i) < y(i-1) && y(i-1) > y(i-2))
-        dwnCurve = dwnCurve + 1;
+        peaks = peaks + 1;
     end
 end
 
-fprintf('In %d seconds, %d bounces take place.\n',T,dwnCurve);
+fprintf('In %d seconds, %d bounces take place.\n', T, peaks);
 %% 5.2 Maximum speed experienced by the jumper
 %
-% Describe the question, and then answer it.  In this case, you will create
-% a figure of $v$ versus $t$ and refer to it to answer the question.
+% The company wants to know the maximum speed the jumper experiences in
+% order to know the velocity "thrill factor". The graph below describes the
+% velocity over the course of 60 seconds beginning at the point the jumper
+% falls.
 % 
-% This question refers to finding the point at which the jumper reaches the
-% maximum speed, for the highest thrill factor. 
-% The graph shows the highest velocity of $value$ is reached at
-% $$t(index)$$ seconds.
+% The highest velocity is roughly 20m/s as indicated by the first peak in
+% the graph, and is also displayed below for more precision.
+
+figure(2)
+plot(t, v);
+xlabel('time (s)');
+ylabel('velocity (m/s)');
+title('Figure 2: Jumper velocity over time.');
 
 [value, index] = max(v);
-fprintf('Maximum speed occurs at %.2d seconds',  t(index));
+fprintf('Maximum speed of %.2fm/s occurs at %.2f seconds', value, t(index));
 
 %% 5.3 Maximum acceleration experienced by the jumper
 %
-% Describe the question, and then answer it.  In this case, you will call
-% a function to numerically differentiate $v$ to find $a$.  Then plot $a$ 
-% versus $t$ and refer to it to answer the question.
+% The client boasts of a maximum acceleration of up to 2g without exceeding 
+% it, and requires verification of that claim. Firstly, the 
+% acceleration must be known, which is approximated by integrating the 
+% velocity v using the Second Order Central Method. The method has been
+% modified to use indeces in order to get values of v.
 %
-% Knowing the acceleration at t = 0 is g we skip the first step in order 
+% Knowing the acceleration at t = 0 is g due to lack of external forces at
+% the exact point the jump begins we skip the first step in order 
 % for the arrays v and y to grab values from the previous and next 
-% index which allows the second order central differentiation to work
+% index which allows Second Order Central differentiation to work. During
+% that process the maximum acceleration is recorded and displayed below,
+% and as shown, sits comfortably (18.46m/s^2) below the 2g (19.6m/s^2) 
+% threshold while still close enough to uphold the company's claim.
 
 f = @(t) v(t);
 a = zeros(1,n+1);
 a(1) = g;
 max_a = g; % Finding the maximum acceleration the jumper experiences
 index = 1;
-for j = 2:n
+for j = 2:n % Indexing through all values of v from 0 to 60 seconds
     a(j) = second_order_central(f, j, index, h);
     if max_a < abs(a(j))
        max_a = abs(a(j));
@@ -168,30 +191,46 @@ plot(t, a);
 xlabel('time (s)');
 ylabel('fall acceleration (m/s^2)');
 title('Figure 3: Fall acceleration over time.');
+
+fprintf('The jumper experiences a maximum of %.3fm/s^2 acceleration during the 60 second jump', max_a);
 %% 5.4 Distance travelled by the jumper
 %
-% Describe the question, and then answer it.  In this case, you will call
-% a function to numerically integrate $|v|$ to find the distance.
-%
 % As a requirement for promotional material, the question asks to compute
-% the total distance the jumper has travelled in 60 seconds.
+% the total distance the jumper has travelled in 60 seconds. This is
+% achieved by taking the absolute of the velocity v, whereby allowing the
+% total distance to accumulate over the course of the entire jump rather 
+% than only when the velocity is positive. 
+%
+% The index of the first and last point of the jump is taken, then using 
+% Simpson's Rule the velocity is integrated from velocity at 0 seconds to 
+% 60 seconds. The total distance is printed below. Once again the Simpson's
+% Rule function has been modified to take in indeces of v.
 
+% function for absolute value v
 f_absv = @(t) abs(v(t));
+
+% Index for velocity at 0 seconds and at 60 seconds
 a = 1;
 b = 10001;
 
+% Simpson's Rule for calculating total distance of the jump.
 distance = simprule(f_absv, a, b, n, h);
 
-fprintf('The jumper has traveled %.0f metres in %d seconds', distance, T);
+fprintf('The jumper has traveled %.2f metres in %d seconds', distance, T);
 %% 5.5 Automated camera system
 %
 % The client plans to implement an automated camera system in order to
-% capture the jumper as they descend 
+% capture the jumper as they descend. In order to do this the client wants
+% to know the point at which the jumper will reach the camera on their
+% first descent. 
 %
-% Describe the question, and then answer it.  In this case, you will
-% fit an interpolating polynomial through the four points in your solution
-% $y$ that lie either side of the camera location.  Then use that
-% polynomial to solve for when the jumper passes the camera.
+% The solution below finds the closest four points to the
+% position of the cmera relative to the jumper, with two of those points
+% being above the camera and two below. The points are then interpolated
+% using Newton Forward Difference Form, then the closest point to 43m is
+% found through the Bisection Method, modified to work with indeces and
+% looping until the closest value of y is found. Printed below is also the 
+% resulting height and time the camera should take a photo.
 
 y_cam = H - D; % Distance from the jumper to the camera
 y_index = 1; % Indexing through y to find the closest value to y_cam
@@ -203,7 +242,7 @@ while y(y_index) < y_cam
 end
 Y = [y(y_index - 2) y(y_index - 1) y(y_index) y(y_index + 1)];
 
-% Also grabbing the time the same four points of Y
+% Also grabbing the time for the same four points of Y
 T = [t(y_index - 2) t(y_index - 1) t(y_index) t(y_index + 1)];
 
 % Considering the y values are all equally spaced by interval h with
@@ -218,10 +257,11 @@ y_interpol = forward_eval(T, M, t_interpol);
 % polynomial at 43m
 f_root = @(x) y_interpol(x);
 
-% indeces of the first and last values of y_interpol
+% Indeces of the first and last values of y_interpol
 root_a = 1;
 root_b = length(y_interpol);
 
+% Using the bisection method to find the index
 p = bisection(f_root, root_a, root_b, y_cam);
 figure(4)
 plot (T, Y, 'ro');
@@ -233,12 +273,12 @@ ylabel('distance fallen (m)');
 title('Figure 4: Interpolated polynomial over four points closest to 43m.');
 legend('4 points near 43m', 'polynomial', 'closest to 43m');
 
-fprintf('The camera should trigger at %7.5f seconds', t_interpol(p));
+fprintf('The camera should trigger at the point %7.5fm after the jumper falls for %7.5f seconds', y_interpol(p), t_interpol(p));
 %% 5.6 Water touch option
 %
 % Describe the question, and then answer it.  In this case, you will
-% re-solve the equations with different parameters for $L$ and $k$.  
-% Experiment to find which values work best for the water touch option, but 
+% re-solve the equations with different parameters for $L$ and $k$.
+% Experiment to find which values work best for the water touch option, but
 % include only the best combination that you found in the submitted code.
 
 %% 6 Conclusion
