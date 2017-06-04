@@ -351,7 +351,10 @@ fprintf('The jumper falls %5.3fm on their first bounce, bounces %d times, and ha
 % the photo approximately 3.3 seconds into the jump, when the jumper has 
 % fallen 43 metres.
 %
-% For the marketed water touch option, ...
+% For the marketed water touch option, a rope length of 43.6m was
+% determined to work best, with a spring constant of 76.2. This allowed the
+% jumper to submerge 30mm into the water, whilst still retaining the other
+% requirements of the jump.
 % 
 % The bungee setup is both safe and provides an adequate thrill to the 
 % jumpers.
