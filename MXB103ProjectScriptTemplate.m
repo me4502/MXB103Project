@@ -63,9 +63,6 @@
 
 %% 3.1 Assumptions and limitations
 %
-% Write a paragraph on the assumptions and limitations on the model,
-% and a paragraph on the limitations on the study you have conducted.
-%
 % In the model there will be a range of assumptions that will have to be
 % taken into consideration. The model assumes there be a constant drag on 
 % the jumper and a vertical bounce from the bungee cord. This assumption
@@ -76,12 +73,10 @@
 % catasptophic cancellation. This limits the accuracy in the results of the
 % model.
 %
-% In regards to the study, there is an assumption that the weather
-% conditions would be constant. This means that the study does not properly
-% discuss the differences weather would make on the Parameters described in
-% the study. This leads to the limiting the studies outcome accuracy by not
-% describing the changes on thrill and excitement that would directly
-% depend on the change in weather.
+% Roundoff errors, and errors from methods used contribute to
+% the inaccuracy of the model overall, and can increase as multiple methods
+% are strung together. weather conditions, and other minor forces are
+% ignored in this model as well.
 
 %% 3.2 Parameters
 H = 74;             % Height of jump point (m)
