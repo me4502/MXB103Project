@@ -56,7 +56,7 @@
 % therefore negative.
 %
 % (g) is gravity, as stated before, (C) is the drag coefficient (c) divided
-% by mass of the jumper (m). (v) is the velocity of the jumper, (K) is the 
+% by the mass of the jumper (m). (v) is the velocity of the jumper, (K) is the 
 % spring constant of the bungee chord divided by (m). (y) is the height of
 % the jumper relative to the initial position of the jumper, and (L) is the 
 % length of the bungee chord.
@@ -127,11 +127,11 @@ title('Figure 1: Distance fallen over time.');
 
 %% 5.1 Timing and bounces
 % 
-% The question describes the bungee company's suggested number of bounces
-% that should take place within 60 seconds. The company recommends 10 
-% bounces to be performed within the 60 seconds. Indexing through all y 
-% values, the peaks of each wave are counted towards a counter, which shows
-% below having counted 10 bounces as the company has recommended.
+% The question describes the bungee company's suggested number of bounces 
+% that should take place within 60 seconds. The company recommends ten 
+% bounces be performed within the 60 seconds. Indexing through all y 
+% values, the peaks of each wave are counted towards a counter, which 
+% shows below having counted ten bounces as the company has recommended.
 
 peaks = 0;
 for i = 3:n
@@ -143,12 +143,11 @@ end
 fprintf('In %d seconds, %d bounces take place.\n', T, peaks);
 %% 5.2 Maximum speed experienced by the jumper
 %
-% The company wants to know the maximum speed the jumper experiences in
-% order to know the velocity "thrill factor". The graph below describes the
-% velocity over the course of 60 seconds beginning at the point the jumper
-% falls.
-% 
-% The highest velocity is roughly 20m/s as indicated by the first peak in
+% The company wants to know the maximum speed the jumper experiences to 
+% know the velocity "thrill factor". The graph below describes the velocity
+% over the course of 60 seconds beginning at the point the jumper falls.
+%
+% The highest velocity is roughly 20m/s as indicated by the first peak in 
 % the graph, and is also displayed below for more precision.
 
 figure(2)
@@ -162,19 +161,19 @@ fprintf('Maximum speed of %.2fm/s occurs at %.2f seconds', value, t(index));
 
 %% 5.3 Maximum acceleration experienced by the jumper
 %
-% The client boasts of a maximum acceleration of up to 2g without exceeding 
-% it, and requires verification of that claim. Firstly, the 
-% acceleration must be known, which is approximated by integrating the 
-% velocity v using the Second Order Central Method. The method has been
-% modified to use indeces in order to get values of v.
-%
-% Knowing the acceleration at t = 0 is g due to lack of external forces at
-% the exact point the jump begins we skip the first step in order 
-% for the arrays v and y to grab values from the previous and next 
-% index which allows Second Order Central differentiation to work. During
-% that process the maximum acceleration is recorded and displayed below,
-% and as shown, sits comfortably (18.46m/s^2) below the 2g (19.6m/s^2) 
-% threshold while still close enough to uphold the company's claim.
+% The client boasts of a maximum acceleration of up to 2g without exceeding
+% it and requires verification of that claim. Firstly, the acceleration 
+% must be known, which is approximated by integrating the velocity v using 
+% the Second Order Central Method. The method has been modified to use 
+% indices to get values of v.
+% 
+% Knowing the acceleration at t = 0 is g due to lack of external forces 
+% at the exact point the jump begins we skip the first step for the arrays 
+% v and y to grab values from the previous and next index which allows 
+% Second Order Central differentiation to work. During that process, the
+% maximum acceleration is recorded and displayed below, and as shown, 
+% sits comfortably (18.46m/s^2) below the 2g (19.6m/s^2) threshold while 
+% still close enough to uphold the company's claim.
 
 f = @(t) v(t);
 a = zeros(1,n+1);
@@ -197,16 +196,16 @@ title('Figure 3: Fall acceleration over time.');
 fprintf('The jumper experiences a maximum of %.3fm/s^2 acceleration during the 60 second jump', max_a);
 %% 5.4 Distance travelled by the jumper
 %
-% As a requirement for promotional material, the question asks to compute
-% the total distance the jumper has travelled in 60 seconds. This is
-% achieved by taking the absolute of the velocity v, whereby allowing the
+% As a requirement for promotional material, the question asks to compute 
+% the total distance the jumper has travelled in 60 seconds. This is 
+% achieved by taking the absolute of the velocity v, whereby allowing the 
 % total distance to accumulate over the course of the entire jump rather 
 % than only when the velocity is positive. 
 %
 % The index of the first and last point of the jump is taken, then using 
 % Simpson's Rule the velocity is integrated from velocity at 0 seconds to 
 % 60 seconds. The total distance is printed below. Once again the Simpson's
-% Rule function has been modified to take in indeces of v.
+% Rule function has been modified to take in indices of v.
 
 % function for absolute value v
 f_absv = @(t) abs(v(t));
@@ -221,18 +220,17 @@ distance = simprule(f_absv, a, b, n, h);
 fprintf('The jumper has traveled %.2f metres in %d seconds', distance, T);
 %% 5.5 Automated camera system
 %
-% The client plans to implement an automated camera system in order to
-% capture the jumper as they descend. In order to do this the client wants
-% to know the point at which the jumper will reach the camera on their
-% first descent. 
+% The client plans to implement an automated camera system to capture the 
+% jumper as they descend. To do this, the client wants to know the point 
+% at which the jumper will reach the camera on their first descent. 
 %
-% The solution below finds the closest four points to the
-% position of the camera relative to the jumper, with two of those points
-% being above the camera and two below. The points are then interpolated
-% using Newton Forward Difference Form, then the closest point to 43m is
-% found through the Bisection Method, modified to work with indeces and
-% looping until the closest value of y is found. Printed below is also the 
-% resulting height and time the camera should take a photo.
+% The solution below finds the closest four points to the position of the 
+% camera relative to the jumper, with two of those points being above the 
+% camera and two below. The points are then interpolated using Newton 
+% Forward Difference Form, then the closest point to 43m is found through 
+% the Bisection Method, modified to work with indices and looping until 
+% the closest value of y is found. Printed below is also the resulting 
+% height and time the camera should take a photo.
 
 y_cam = H - D; % Distance from the jumper to the camera
 y_index = 1; % Indexing through y to find the closest value to y_cam
@@ -291,7 +289,7 @@ fprintf('The camera should trigger at the point %7.5fm after the jumper falls fo
 % the jumper is also similar enough to the 2g threshold to market it as 
 % such, without sacrificing safety.
 %
-% Throughout the 60-seconds, the jumper will travel almost 300 metres 
+% Throughout the 60 seconds, the jumper will travel almost 300 metres 
 % through the air. For the automatic camera setup, the camera should take 
 % the photo approximately 3.3 seconds into the jump, when the jumper has 
 % fallen 43 metres.
