@@ -63,20 +63,20 @@
 
 %% 3.1 Assumptions and limitations
 %
-% In the model there will be a range of assumptions that will have to be
+% In the model, there will be a range of assumptions that will have to be 
 % taken into consideration. The model assumes there be a constant drag on 
-% the jumper and a vertical bounce from the bungee cord. This assumption
-% leads to limitations on the model. The model does not accurately depict
-% different types of bounces. Assuming that all bounces are vertical limits
-% the ability to properly depict the amount of thrill and excitement that
-% an individual would gain. Another limitation is derived from the issue of
-% catasptophic cancellation. This limits the accuracy in the results of the
-% model.
+% the jumper and a vertical bounce from the bungee cord. This assumption 
+% leads to limitations on the model. The model does not accurately depict 
+% different types of bounces. Assuming that all bounces are vertical 
+% limits the ability to properly depict the amount of thrill and 
+% excitement that an individual would gain. Another limitation is derived 
+% from the issue of catasptophic cancellation. This limits the accuracy of 
+% the results of the model.
 %
-% Roundoff errors, and errors from methods used contribute to
-% the inaccuracy of the model overall, and can increase as multiple methods
-% are strung together. weather conditions, and other minor forces are
-% ignored in this model as well.
+% Roundoff errors and inaccuracies from methods used contribute to the 
+% inaccuracy of the model overall and can increase as multiple methods are 
+% strung together. Weather conditions and other minor forces are ignored 
+% in this model as well.
 
 %% 3.2 Parameters
 H = 74;             % Height of jump point (m)
@@ -281,17 +281,17 @@ legend('4 points near 43m', 'polynomial', 'closest to 43m');
 fprintf('The camera should trigger at the point %7.5fm after the jumper falls for %7.5f seconds', y_interpol(p), t_interpol(p));
 %% 5.6 Water touch option
 %
-% The company is interested in a new option where the jumper will drop far
-% enough that they will touch the water at their first bounce while
+% The company is interested in a new option where the jumper will drop far 
+% enough that they will touch the water at their first bounce while 
 % maintaining as close to ten bounce and maximum 2g limit. 
 %
 % A solution was found by using a series of values for L and k, and using 
 % the previous methods for counting bounces, maximum acceleration, and 
 % finding the maximum drop height as close to 74m as possible. The final 
-% solution below contains the best result concieved where the jumper dips 
+% solution below contains the best result conceived where the jumper dips 
 % 30mm into the water while still maintaining ten bounces, and has a 
 % maximum acceleration of below 2g. Detail of exact values can be seen 
-% above the graphs below.
+% before the following graphs.
 
 % The _w denotes "watertouch"
 L_w = 43.6;             % Length of bungee cord (m)
@@ -353,7 +353,7 @@ fprintf('The jumper falls %5.3fm on their first bounce, bounces %d times, and ha
 %
 % For the marketed water touch option, a rope length of 43.6m was
 % determined to work best, with a spring constant of 76.2. This allowed the
-% jumper to submerge 30mm into the water, whilst still retaining the other
+% jumper to submerge 30mm into the water, while still retaining the other
 % requirements of the jump.
 % 
 % The bungee setup is both safe and provides an adequate thrill to the 
