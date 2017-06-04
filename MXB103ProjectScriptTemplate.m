@@ -241,18 +241,18 @@ y_index = 1; % Indexing through y to find the closest value to y_cam
 while y(y_index) < y_cam
     y_index = y_index + 1;
 end
-Y = [y(y_index - 2) y(y_index - 1) y(y_index) y(y_index + 1)];
+Y_p = [y(y_index - 2) y(y_index - 1) y(y_index) y(y_index + 1)];
 
 % Also grabbing the time for the same four points of Y
-T = [t(y_index - 2) t(y_index - 1) t(y_index) t(y_index + 1)];
+T_p = [t(y_index - 2) t(y_index - 1) t(y_index) t(y_index + 1)];
 
 % Considering the y values are all equally spaced by interval h with
 % regards to time, it is possible to use Newton Forward Difference Form to
 % generate the interpolating polynomial for the four points gathered
 
-M = forward_differences(Y);
-t_interpol = T(1):h/100:T(length(T));
-y_interpol = forward_eval(T, M, t_interpol);
+M = forward_differences(Y_p);
+t_interpol = T_p(1):h/100:T_p(length(T_p));
+y_interpol = forward_eval(T_p, M, t_interpol);
 
 % Using the bisection method to find the root of the interpolating
 % polynomial at 43m
@@ -265,7 +265,7 @@ root_b = length(y_interpol);
 % Using the bisection method to find the index
 p = bisection(f_root, root_a, root_b, y_cam);
 figure(4)
-plot (T, Y, 'ro');
+plot (T_p, Y_p, 'ro');
 hold on
 plot (t_interpol, y_interpol);
 plot (t_interpol(p), y_interpol(p), '*');
@@ -277,11 +277,57 @@ legend('4 points near 43m', 'polynomial', 'closest to 43m');
 fprintf('The camera should trigger at the point %7.5fm after the jumper falls for %7.5f seconds', y_interpol(p), t_interpol(p));
 %% 5.6 Water touch option
 %
-% Describe the question, and then answer it.  In this case, you will
-% re-solve the equations with different parameters for $L$ and $k$.
-% Experiment to find which values work best for the water touch option, but
-% include only the best combination that you found in the submitted code.
+% The company is interested in a new option where the jumper will drop far
+% enough that they will touch the water at their first bounce while
+% maintaining as close to ten bounce and maximum 2g limit. A solution was
+% found by using a series of values for L and k, and using the previous
+% methods for counting bounces, maximum acceleration, and finding the 
+% maximum drop height as close to 74m as possible. The final solution below
+% contains the best result concieved where the jumper dips 30mm into the
+% water while still maintaining ten bounces, and has a maximum acceleration
+% of below 2g. Detail of exact values can be seen above the graphs below.
 
+% The _w denotes "watertouch"
+L_w = 43.6;             % Length of bungee cord (m)
+k_w = 76.2;             % Spring constant of bungee cord (N/m)
+K_w = k_w/m;            % Scaled spring constant
+
+[t_w, y_w, v_w, h_w] = RK4_bungee(T, n, g, C, K_w, L_w);
+
+max_y_w = max(y_w);
+
+figure(5)
+plot(t_w, y_w);
+xlabel('time (s)');
+ylabel('distance fallen (m)');
+title('Figure 5: Distance fallen water touch.');
+
+peaks_w = 0;
+for i = 3:n
+    if(y(i) < y(i-1) && y(i-1) > y(i-2))
+        peaks_w = peaks_w + 1;
+    end
+end
+
+f_w = @(t) v_w(t);
+a_w = zeros(1,n+1);
+a_w(1) = g;
+max_a_w = g; % Finding the maximum acceleration the jumper experiences
+index = 1;
+for j = 2:n % Indexing through all values of v from 0 to 60 seconds
+    a_w(j) = second_order_central(f_w, j, index, h);
+    if max_a_w < abs(a_w(j))
+       max_a_w = abs(a_w(j));
+    end
+end
+
+figure(6)
+plot(t_w, a_w);
+xlabel('time (s)');
+ylabel('fall acceleration (m/s^2)');
+title('Figure 6: Fall acceleration water touch.');
+
+fprintf('The jumper falls %5.3fm on their first bounce, bounces %d times, and has a maximum acceleration of %6.4fm/s^2', max_y_w, peaks_w, max_a_w);
 %% 6 Conclusion
 %
 % Overall the proposal is feasible. The model accurately depicts the 
