@@ -279,21 +279,25 @@ fprintf('The camera should trigger at the point %7.5fm after the jumper falls fo
 %
 % The company is interested in a new option where the jumper will drop far
 % enough that they will touch the water at their first bounce while
-% maintaining as close to ten bounce and maximum 2g limit. A solution was
-% found by using a series of values for L and k, and using the previous
-% methods for counting bounces, maximum acceleration, and finding the 
-% maximum drop height as close to 74m as possible. The final solution below
-% contains the best result concieved where the jumper dips 30mm into the
-% water while still maintaining ten bounces, and has a maximum acceleration
-% of below 2g. Detail of exact values can be seen above the graphs below.
+% maintaining as close to ten bounce and maximum 2g limit. 
+%
+% A solution was found by using a series of values for L and k, and using 
+% the previous methods for counting bounces, maximum acceleration, and 
+% finding the maximum drop height as close to 74m as possible. The final 
+% solution below contains the best result concieved where the jumper dips 
+% 30mm into the water while still maintaining ten bounces, and has a 
+% maximum acceleration of below 2g. Detail of exact values can be seen 
+% above the graphs below.
 
 % The _w denotes "watertouch"
 L_w = 43.6;             % Length of bungee cord (m)
 k_w = 76.2;             % Spring constant of bungee cord (N/m)
 K_w = k_w/m;            % Scaled spring constant
 
+% Recalculating using RK4 for new values
 [t_w, y_w, v_w, h_w] = RK4_bungee(T, n, g, C, K_w, L_w);
 
+% Finding max height fallen
 max_y_w = max(y_w);
 
 figure(5)
@@ -302,12 +306,14 @@ xlabel('time (s)');
 ylabel('distance fallen (m)');
 title('Figure 5: Distance fallen water touch.');
 
+% Same method for counting peaks as before
 peaks_w = 0;
 for i = 3:n
     if(y(i) < y(i-1) && y(i-1) > y(i-2))
         peaks_w = peaks_w + 1;
     end
 end
+
 
 f_w = @(t) v_w(t);
 a_w = zeros(1,n+1);
