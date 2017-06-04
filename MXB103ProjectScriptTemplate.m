@@ -1,45 +1,47 @@
 %% MXB103 Project Group 64:  BUNGEE!
 
 %% 1  Introduction
-% As part of Brisbane's "New World City" transformation, the Brisbane City
-% Council is investigating a proposal to allow bungee jumping off the
-% Story Bridge. This report addresses several key questions about the
+% As part of Brisbane's "New World City" transformation, the Brisbane City 
+% Council is investigating a proposal to allow bungee jumping off the Story
+% Bridge. This report addresses several fundamental questions about the 
 % proposal.
 %
-% In Section 2 of this report, the proposal and the key questions relating 
-% to it are discussed in more detail. In Section 3, the model is expanded
-% on including the mathematical equation representing the acceleration of 
-% the jumper and how this equation was formed. This is followed by a 
-% disussion of the assumptions and limitations considered with the model 
-% and throughout the study as well as the parameters the study is basing 
-% its results on.
-%
-% Section 4 introduces the formulated model and parameters for the formula
+% In Section 2 of this report, the proposal and the key issues relating to 
+% it are discussed in more detail. In Section 3, the model is expanded on 
+% including the mathematical equation representing the acceleration of the 
+% jumper and how this equation was formed. This is followed by a discussion
+% of the assumptions and limitations considered with the model and 
+% throughout the study as well as the parameters the study is basing its 
+% results on.
+% 
+% Section 4 introduces the formulated model and parameters for the formula 
 % to then show the model in graph form. Then section 5 comes to the 
 % analysis of the graphical predictions addressing the questions of the 
-% proposal with further analysis. Finally  coming to a conclusion in
+% proposal with further analysis. Finally coming to a conclusion in 
 % section 6 discussing findings and future recommendations.
+
 
 %% 2  The proposal
 %
-% The Brisbane City Council has proposed for a bungee jumping platform to
+% The Brisbane City Council has proposed for a bungee jumping platform to 
 % be installed at the top of the Story Bridge. 
 %
-% We have been tasked with determining if the model will provide adequate
-% thrill to the customers, whilst still retaining safety. The model is also
-% used to determine the perfect trigger-point for a camera to go off, to
-% ensure the customer can purchase a photo to remember their experience by.
+% We have been tasked with determining if the model will provide an 
+% adequate thrill to the customers, while still retaining safety. The 
+% model is also used to determine the perfect trigger-point for a camera 
+% to go off, to ensure the customer can purchase a photo with which to 
+% remember their experience.
 %
-% Furthermore, a 'water touch' experience is wanted to be offered to allow
-% the customers to experience touching the water. The model is to be used
-% to determine how closely they will touch the water, and how it can be
+% Furthermore, a 'water touch' experience is wanted to be offered to allow 
+% the customers to experience touching the water. The model is to be used 
+% to determine how closely they will touch the water, and how it can be 
 % modified to optimise for this without sacrificing safety.
 %
-% In order to solve this, the fourth order Runge-Kutta method has been
+% To solve these questions, the fourth order Runge-Kutta method has been 
 % used to approximate the velocity and distance fallen of the jumper using 
 % the model below.
 %
-% The following model will be used to answer these questions.
+%The following model will be used to answer these questions.
 
 %% 3 The model
 %
@@ -225,7 +227,7 @@ fprintf('The jumper has traveled %.2f metres in %d seconds', distance, T);
 % first descent. 
 %
 % The solution below finds the closest four points to the
-% position of the cmera relative to the jumper, with two of those points
+% position of the camera relative to the jumper, with two of those points
 % being above the camera and two below. The points are then interpolated
 % using Newton Forward Difference Form, then the closest point to 43m is
 % found through the Bisection Method, modified to work with indeces and
