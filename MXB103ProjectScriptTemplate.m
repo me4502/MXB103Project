@@ -285,5 +285,18 @@ fprintf('The camera should trigger at the point %7.5fm after the jumper falls fo
 
 %% 6 Conclusion
 %
-% Conclude your report by summing up your findings and making any
-% recommendations.
+% Overall the proposal is feasible. The model accurately depicts the 
+% requirements of the client, allowing the jumper to experience ten jumps 
+% within the 60-second timeframe. The maximum acceleration experienced by 
+% the jumper is also similar enough to the 2g threshold to market it as 
+% such, without sacrificing safety.
+%
+% Throughout the 60-seconds, the jumper will travel almost 300 metres 
+% through the air. For the automatic camera setup, the camera should take 
+% the photo approximately 3.3 seconds into the jump, when the jumper has 
+% fallen 43 metres.
+%
+% For the marketed water touch option, ...
+% 
+% The bungee setup is both safe and provides an adequate thrill to the 
+% jumpers.
