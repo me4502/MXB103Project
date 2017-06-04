@@ -68,11 +68,18 @@
 %
 % In the model there will be a range of assumptions that will have to be
 % taken into consideration. The model assumes there be a constant drag on 
-% the jumper and a vertical bounce from the bungee cord. The model also
-% has a limitationin that it does not adjust for the different possible
-% weather conditions.
+% the jumper and a vertical bounce from the bungee cord. This assumption
+% leads to limitations on the model. The model does not accurately depict
+% different types of bounces. Assuming that all bounces are vertical limits
+% the ability to properly depict the amount of thrill and excitement that
+% an individual would gain.
 %
-% The following study conducted also has limitations. 
+% In regards to the study, there is an assumption that the weather
+% conditions would be constant. This means that the study does not properly
+% discuss the differences weather would make on the Parameters described in
+% the study. This leads to the limiting the studies outcome accuracy by not
+% describing the changes on thrill and excitement that would directly
+% depend on the change in weather.
 
 %% 3.2 Parameters
 H = 74;             % Height of jump point (m)
