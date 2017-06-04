@@ -39,9 +39,8 @@
 %
 % To solve these questions, the fourth order Runge-Kutta method has been 
 % used to approximate the velocity and distance fallen of the jumper using 
-% the model below.
-%
-%The following model will be used to answer these questions.
+% the model below. The following model will be used to answer these 
+% questions.
 
 %% 3 The model
 %
