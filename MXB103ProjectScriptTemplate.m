@@ -72,7 +72,9 @@
 % leads to limitations on the model. The model does not accurately depict
 % different types of bounces. Assuming that all bounces are vertical limits
 % the ability to properly depict the amount of thrill and excitement that
-% an individual would gain.
+% an individual would gain. Another limitation is derived from the issue of
+% catasptophic cancellation. This limits the accuracy in the results of the
+% model.
 %
 % In regards to the study, there is an assumption that the weather
 % conditions would be constant. This means that the study does not properly
