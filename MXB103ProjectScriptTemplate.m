@@ -108,7 +108,8 @@ n = 10000;          % Number of subintervals
 %% 4.2 Solution
 %
 % The ordinary differential equations are solved using fourth order 
-% Runge-Kutta method.
+% Runge-Kutta method. The resulting distance y is plotted below.
+
 [t, y, v, h] = RK4_bungee(T, n, g, C, K, L);
 
 figure(1)
@@ -126,10 +127,10 @@ title('Figure 1: Distance fallen over time.');
 %% 5.1 Timing and bounces
 % 
 % The question describes the bungee company's suggested number of bounces
-% that should take place within 60 seconds. The company recommends 10 
-% bounces to be performed within the 60 seconds. Indexing through all y 
+% that should take place within 60 seconds. The company suggests 10 
+% bounces to be performed within 60 seconds. Indexing through all y 
 % values, the peaks of each wave are counted towards a counter, which shows
-% below having counted 10 bounces as the company has recommended.
+% below having counted 10 bounces as the company has suggested.
 
 peaks = 0;
 for i = 3:n
@@ -168,7 +169,7 @@ fprintf('Maximum speed of %.2fm/s occurs at %.2f seconds', value, t(index));
 %
 % Knowing the acceleration at t = 0 is g due to lack of external forces at
 % the exact point the jump begins we skip the first step in order 
-% for the arrays v and y to grab values from the previous and next 
+% for the array v to grab values from the previous and next 
 % index which allows Second Order Central differentiation to work. During
 % that process the maximum acceleration is recorded and displayed below,
 % and as shown, sits comfortably (18.46m/s^2) below the 2g (19.6m/s^2) 
